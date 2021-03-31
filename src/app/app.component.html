@@ -1,8 +1,9 @@
-<h1>Welcome to my chess app</h1>
+<h1 style="text-align: center;">Welcome to my chess app</h1>
 
 <div class="chessboard">
 
-  <div class="chess-row" *ngFor="let row of rows;">
+  <div class="chess-row" *ngFor="let rows of positions;let row = index;">
+
     <div [ngClass]="{
       'darkbackground': isDarkBackground(row, column),
       'WP': getInitialPosition(row, column, 'WP'),
@@ -17,8 +18,10 @@
       'WQ': getInitialPosition(row, column, 'WQ'),
       'WK': getInitialPosition(row, column, 'WK'),
       'BK': getInitialPosition(row, column, 'BK')
-    }" *ngFor="let column of columns;">
-      {{row}} - {{column}}
+    }" *ngFor="let columns of rows;let column = index;" (click)="onPieceSelect(row, column)">
+
+      <sub>{{columnValues[column]}} - {{rowValues[row]}}</sub>
+
     </div>
   </div>
 
