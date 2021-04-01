@@ -5,11 +5,17 @@ export interface Position {
 
 export type Color = 'White' | 'Black';
 
+export interface ChessPieceMove {
+  (destinationPosition: Position): void;
+}
+
 export interface ChessPiece {
-  name: string;
+  readonly image: string;
+  readonly name: string;
   isAlive: boolean;
   color: Color;
   position: Position;
   getPossibleMoves(): void;
   move(destinationPosition: Position): void;
+  // move: ChessPieceMove;
 }

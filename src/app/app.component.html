@@ -5,22 +5,12 @@
   <div class="chess-row" *ngFor="let rows of positions;let row = index;">
 
     <div [ngClass]="{
-      'darkbackground': isDarkBackground(row, column),
-      'WP': getInitialPosition(row, column, 'WP'),
-      'BP': getInitialPosition(row, column, 'BP'),
-      'WR': getInitialPosition(row, column, 'WR'),
-      'BR': getInitialPosition(row, column, 'BR'),
-      'BH': getInitialPosition(row, column, 'BH'),
-      'WH': getInitialPosition(row, column, 'WH'),
-      'BB': getInitialPosition(row, column, 'BB'),
-      'WB': getInitialPosition(row, column, 'WB'),
-      'BQ': getInitialPosition(row, column, 'BQ'),
-      'WQ': getInitialPosition(row, column, 'WQ'),
-      'WK': getInitialPosition(row, column, 'WK'),
-      'BK': getInitialPosition(row, column, 'BK')
+      'darkbackground': isDarkBackground(row, column)
     }" *ngFor="let columns of rows;let column = index;" (click)="onPieceSelect(row, column)">
 
-      <sub>{{columnValues[column]}} - {{rowValues[row]}}</sub>
+      <img src="{{positions[row][column].image}}">
+
+      <!-- <sub>{{columnValues[column]}} - {{rowValues[row]}}</sub> -->
 
     </div>
   </div>
