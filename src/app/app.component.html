@@ -5,12 +5,13 @@
   <div class="chess-row" *ngFor="let rows of positions;let row = index;">
 
     <div [ngClass]="{
-      'darkbackground': isDarkBackground(row, column)
+      'darkbackground': isDarkBackground(row, column),
+      'highlight': isHighlated(row, column)
     }" *ngFor="let columns of rows;let column = index;" (click)="onPieceSelect(row, column)">
 
       <img src="{{positions[row][column].image}}">
 
-      <!-- <sub>{{columnValues[column]}} - {{rowValues[row]}}</sub> -->
+      <sub>r{{rowValues[row]}} - c{{columnValues[column]}} </sub>
 
     </div>
   </div>

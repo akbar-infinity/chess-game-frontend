@@ -13,13 +13,73 @@ export class Bishop implements ChessPiece {
     }
   }
 
-  getPossibleMoves(): void {
+  private getCurrentPosition() {
+    return JSON.parse(JSON.stringify(this.position));
+  }
+
+  getPossibleMoves(): Position[] {
     console.log('print possible moves', this.position);
+    let output: Position[] = [];
 
       // input {row: 8, column: 6}
 
-      // move rule : increment/decrement rows & increment/decrement columns
-      // condition : row / column can not be greater than 8 & can not be smaller than 1
+      let currentPosition: Position = this.getCurrentPosition();
+
+      // RIGHT DOWN
+      // increment row + increment column upto (row < 8) & (column < 8)
+      while(currentPosition.row < 8 && currentPosition.column < 8) {
+        console.log('in right down', currentPosition);
+        currentPosition.row++;
+        currentPosition.column++;
+        // [currentPosition.row, currentPosition.column] = [currentPosition.column, currentPosition.row];
+        currentPosition['direction'] = 'right down';
+        if (currentPosition.row != 9 && currentPosition.column != 9) {
+          output.push(JSON.parse(JSON.stringify(currentPosition)));
+        }
+
+      }
+
+      currentPosition = this.getCurrentPosition();
+
+      // LEFT UP
+      // decrement row + decrement column upto (row >= 1) & (column >= 1)
+      while(currentPosition.row >= 1 && currentPosition.column >= 1) {
+        console.log('in left up', currentPosition);
+        currentPosition.row--;
+        currentPosition.column--;
+        currentPosition['direction'] = 'left up';
+        if ((currentPosition.row !=0) && (currentPosition.column != 0)) {
+          output.push(JSON.parse(JSON.stringify(currentPosition)));
+        }
+      }
+
+      currentPosition = this.getCurrentPosition();
+
+      // LEFT DOWN
+      // increment row + decrement column upto (row <= 8) OR (column >= 1)
+      while((currentPosition.row <= 8) && (currentPosition.column >= 1)) {
+        console.log('in left down', currentPosition);
+        currentPosition.row++;
+        currentPosition.column--;
+        currentPosition['direction'] = 'left down';
+        if ((currentPosition.row != 9) && (currentPosition.column != 0)) {
+          output.push(JSON.parse(JSON.stringify(currentPosition)));
+        }
+      }
+
+      currentPosition = this.getCurrentPosition();
+      // RIGHT UP
+      // decrement row + increment column upto (row >= 1) & (column <= 8)
+      while((currentPosition.row >= 1) && (currentPosition.column <= 8)) {
+        console.log('in right up', currentPosition);
+        currentPosition.row--;
+        currentPosition.column++;
+        currentPosition['direction'] = 'right up';
+        if ((currentPosition.column != 9) && (currentPosition.row != 0)) {
+          output.push(JSON.parse(JSON.stringify(currentPosition)));
+        }
+
+      }
 
       // output [
       //   {row: 7, column: 7},
@@ -30,6 +90,9 @@ export class Bishop implements ChessPiece {
       //   {row: 4, column: 2},
       //   {row: 3, column: 1}
       // ]
+
+      return output;
+
   }
 
   // TODO check why typescript doesn't throw error for move method properties

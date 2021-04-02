@@ -16,9 +16,11 @@ export class AppComponent implements OnInit {
   title = 'chess-app';
 
   rowValues = [1, 2, 3, 4, 5, 6, 7, 8];
-  columnValues = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+  columnValues = [1, 2, 3, 4, 5, 6, 7, 8];
 
   positions = [];
+
+  hightlatedPositions = [];
 
   moves = [
     {
@@ -64,15 +66,16 @@ export class AppComponent implements OnInit {
     this.positions.push(row1);
     this.positions.push(blackPawns);
 
+    const whiteBishop1 = new Bishop('White', { row: 8, column: 3 });
     for (let row = 3; row < 7; row++) {
-      this.positions.push(['', '','', '','', '','', ''])
+      this.positions.push(['', whiteBishop1,'', '','', '','', ''])
     }
 
     this.positions.push(whitePawns);
 
     const whiteRook1 = new Rook('White', { row: 8, column: 1 });
     const whiteKnight1 = new Knight('White', { row: 8, column: 2 });
-    const whiteBishop1 = new Bishop('White', { row: 8, column: 3 });
+
     const whiteQueen = new Queen('White');
     const whiteKing = new King('White');
     const whiteBishop2 = new Bishop('White', { row: 8, column: 6 });
@@ -81,6 +84,7 @@ export class AppComponent implements OnInit {
     let row8 = [whiteRook1, whiteKnight1, whiteBishop1, whiteQueen, whiteKing, whiteBishop2, whiteKnight2, whiteRook2];
     this.positions.push(row8);
 
+    this.positions[6][4] = whiteBishop1;
     console.log('positions : ', this.positions);
 
   }
@@ -143,11 +147,27 @@ export class AppComponent implements OnInit {
   }
 
   onPieceSelect(row: number, column: number) {
-    console.log('row : ', row, ' column : ', column, this.positions[row][column]);
+    console.log('row : ', row + 1, ' column : ', column + 1, this.positions[row][column]);
 
     if (this.positions[row][column] !== '') {
-      this.positions[row][column].getPossibleMoves();
+      const positions = this.positions[row][column].getPossibleMoves();
+      this.hightlatedPositions = positions;
+      console.log('positions : ', positions);
     }
 
+  }
+
+  isHighlated(row, column) {
+    row++;
+    column++;
+    let hightlight = false;
+    // console.log('postions : ', this.hightlatedPositions);
+    for (let index = 0; index < this.hightlatedPositions.length; index++) {
+      if (this.hightlatedPositions[index].row=== row && this.hightlatedPositions[index].column===column) {
+        hightlight = true;
+        break;
+      }
+    }
+    return hightlight;
   }
 }
