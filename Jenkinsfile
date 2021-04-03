@@ -11,6 +11,16 @@ pipeline{
           branch: 'akbar'
       }
     }
+
+    stage ('registry set') {
+        configFileProvider([configFile(fileId: '82c746e0-1479-472e-a05e-71d644c75102', variable: 'npm_config_registry')]) {
+            // some block
+            echo " =========== ^^^^^^^^^^^^ Reading config from pipeline script "
+            sh "cat ${env.npm_config_registry}"
+            echo " =========== ~~~~~~~~~~~~ ============ "
+        }
+    }
+
     stage ('install modules'){
       steps{
         sh '''
@@ -26,20 +36,20 @@ pipeline{
           npm test --browsers Chrome_no_sandbox
         '''
       }
-      post {
-          always {
-            junit "test-results.xml"
-          }
-      }
+      // post {
+      //     always {
+      //       junit "test-results.xml"
+      //     }
+      // }
     }
     stage ('code quality'){
       steps{
-        sh '$(npm bin)/ng lint'
+        sh 'npm run-script lint'
       }
     }
     stage ('build') {
       steps{
-        sh '$(npm bin)/ng build --prod --build-optimizer'
+        sh 'npm run-script build --prod --build-optimizer'
       }
     }
   }
