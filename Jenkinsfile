@@ -1,11 +1,11 @@
 pipeline{
   agent { label 'nodejs:latest' }
   stages{
-    stage ('checkout'){
-      steps{
-        checkout scm
-      }
-    }
+    // stage ('checkout'){
+    //   steps{
+    //     checkout scm
+    //   }
+    // }
     stage ('install modules'){
       steps{
         sh '''
