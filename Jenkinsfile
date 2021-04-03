@@ -18,7 +18,7 @@ pipeline{
         sh '''
           npm config ls
         '''
-
+        sh 'npm adduser --registry http://oms.in:4873'
         sh 'npm install --verbose'
       }
     }
