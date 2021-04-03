@@ -22,18 +22,18 @@ pipeline{
         sh 'npm install --verbose'
       }
     }
-    stage ('test'){
-      steps{
-        sh '''
-          npm test --browsers Chrome_no_sandbox
-        '''
-      }
+    // stage ('test'){
+    //   steps{
+    //     sh '''
+    //       npm test --browsers Chrome_no_sandbox
+    //     '''
+    //   }
       // post {
       //     always {
       //       junit "test-results.xml"
       //     }
       // }
-    }
+    // }
     stage ('code quality'){
       steps{
         sh 'npm run-script lint'
@@ -45,9 +45,9 @@ pipeline{
       }
     }
   }
-  // post {
-  //   always {
-  //     cleanWs()
-  //   }
-  // }
+  post {
+    always {
+      cleanWs()
+    }
+  }
 }
