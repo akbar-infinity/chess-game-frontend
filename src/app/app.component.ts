@@ -117,50 +117,6 @@ export class AppComponent implements OnInit {
     return false;
   }
 
-  getInitialPosition(row: number, column: number, className: string): boolean {
-    row = row + 1;
-    column = column + 1;
-    switch (className.toUpperCase()) {
-      case 'BP':
-        if (row === 2) return true;
-        break;
-      case 'WP':
-        if (row === 7) return true;
-        break;
-      case 'BR':
-        if (row === 1 && (column === 1 || column === 8)) return true;
-        break;
-      case 'WR':
-        if (row === 8 && (column === 1 || column === 8)) return true;
-        break;
-      case 'BH':
-        if (row === 1 && (column === 2 || column === 7)) return true;
-        break;
-      case 'WH':
-        if (row === 8 && (column === 2 || column === 7)) return true;
-        break;
-      case 'BB':
-        if (row === 1 && (column === 3 || column === 6)) return true;
-        break;
-      case 'WB':
-        if (row === 8 && (column === 3 || column === 6)) return true;
-        break;
-      case 'WQ':
-        if (row === 8 && column === 4) return true;
-        break;
-      case 'BQ':
-        if (row === 1 && column === 4) return true;
-        break;
-      case 'WK':
-        if (row === 8 && column === 5) return true;
-        break;
-      case 'BK':
-        if (row === 1 && column === 5) return true;
-        break;
-    }
-    return false;
-  }
-
   onPieceSelect(row: number, column: number) {
     console.log('row : ', row + 1, ' column : ', column + 1, this.positions[row][column]);
 
