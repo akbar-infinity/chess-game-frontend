@@ -15,7 +15,7 @@ pipeline{
       steps{
         sh '''
           npm config set regisry https://registry.npmjs.org
-          npm install
+          npm install --verbose
         '''
       }
     }
