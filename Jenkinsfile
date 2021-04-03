@@ -5,22 +5,21 @@ pipeline{
 
   stages{
 
-    stage('Git') {
-      steps {
-        git url: 'https://github.com/akbar-infinity/chess-game-frontend.git',
-          credentialsId: 'git-creds',
-          branch: 'akbar'
-      }
-    }
-
-
-
+    // stage('Git') {
+    //   steps {
+    //     git url: 'https://github.com/akbar-infinity/chess-game-frontend.git',
+    //       credentialsId: 'git-creds',
+    //       branch: 'akbar'
+    //   }
+    // }
 
     stage ('install modules'){
       steps{
         sh '''
           npm config ls
         '''
+
+        sh 'npm install'
       }
     }
     stage ('test'){
