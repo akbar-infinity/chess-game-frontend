@@ -1,4 +1,4 @@
-import { ChessPiece, ChessPieceMove, Color, Position } from "./types";
+import { ChessPiece, ChessPieceColor, ChessPieceMove, Color, Position } from "./types";
 
 export class Queen implements ChessPiece {
   image = '';
@@ -6,8 +6,8 @@ export class Queen implements ChessPiece {
   isAlive = true;
   position: Position;
 
-  constructor(public color: Color) {
-    if (this.color.toUpperCase() === 'BLACK') {
+  constructor(public color: ChessPieceColor) {
+    if (this.color === ChessPieceColor.BLACK) {
       this.position = {
         row: 1,
         column: 4
@@ -22,8 +22,8 @@ export class Queen implements ChessPiece {
     }
   }
 
-  getPossibleMoves(): void {
-
+  getPossibleMoves(): Position[] {
+    return []
   }
 
   // TODO check why typescript doesn't throw error for move method properties

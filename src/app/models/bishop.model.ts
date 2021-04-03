@@ -1,12 +1,12 @@
-import { ChessPiece, ChessPieceMove, Color, Position } from "./types";
+import { ChessPiece, ChessPieceMove, ChessPieceColor, Color, Position } from "./types";
 
 export class Bishop implements ChessPiece {
   image = '';
   name = 'Bishop';
   isAlive = true;
 
-  constructor(public color: Color, public position: Position) {
-    if (color.toUpperCase() === 'BLACK') {
+  constructor(public color: ChessPieceColor, public position: Position) {
+    if (this.color === ChessPieceColor.BLACK) {
       this.image = 'https://maxcdn.icons8.com/iOS7/PNG/25/Gaming/bishop_filled-25.png';
     } else {
       this.image = 'https://maxcdn.icons8.com/iOS7/PNG/25/Gaming/bishop-25.png';
