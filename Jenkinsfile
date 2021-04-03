@@ -1,5 +1,8 @@
 pipeline{
-  agent { label 'nodejs:latest' }
+  agent any
+
+  tools {nodejs "nodejs:latest"}
+
   stages{
     // stage ('checkout'){
     //   steps{
