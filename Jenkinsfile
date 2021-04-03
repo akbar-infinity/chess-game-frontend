@@ -22,7 +22,7 @@ pipeline{
     stage ('test'){
       steps{
         sh '''
-          $(npm bin)/ng test --single-run --browsers Chrome_no_sandbox
+          npm test --browsers Chrome_no_sandbox
         '''
       }
       post {
