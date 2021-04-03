@@ -19,7 +19,7 @@ pipeline{
           npm config ls
         '''
 
-        sh 'npm install'
+        sh 'npm install --verbose'
       }
     }
     stage ('test'){
