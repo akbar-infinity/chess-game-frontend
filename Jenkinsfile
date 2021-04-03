@@ -17,6 +17,16 @@ pipeline{
 
 // }
 
+node('LINUX_GENERAL') {
+      stage ('registry set') {
+        configFileProvider([configFile(fileId: '82c746e0-1479-472e-a05e-71d644c75102', variable: 'npm_config_registry')]) {
+            // some block
+            echo " =========== ^^^^^^^^^^^^ Reading config from pipeline script "
+            sh "cat ${env.npm_config_registry}"
+            echo " =========== ~~~~~~~~~~~~ ============ "
+        }
+      }
+    }
 
   stages{
     stage('Git') {
@@ -27,16 +37,7 @@ pipeline{
       }
     }
 
-    node('LINUX_GENERAL') {
-      stage ('registry set') {
-        configFileProvider([configFile(fileId: '82c746e0-1479-472e-a05e-71d644c75102', variable: 'npm_config_registry')]) {
-            // some block
-            echo " =========== ^^^^^^^^^^^^ Reading config from pipeline script "
-            sh "cat ${env.npm_config_registry}"
-            echo " =========== ~~~~~~~~~~~~ ============ "
-        }
-      }
-    }
+
 
 
     stage ('install modules'){
