@@ -12,17 +12,17 @@ pipeline{
       }
     }
 
-    stage ('test'){
+    stage ('code quality'){
       steps{
-        sh 'npm test --watch=false --progress=false'
+        sh 'npm run-script lint'
       }
     }
 
-    // stage ('build') {
-    //   steps{
-    //     sh 'npm run-script build --prod --build-optimizer'
-    //   }
-    // }
+    stage ('build') {
+      steps{
+        sh 'npm run-script build --prod --aot --build-optimizer'
+      }
+    }
   }
   post {
     always {
