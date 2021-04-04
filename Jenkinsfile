@@ -34,7 +34,7 @@ pipeline{
     }
     success {
       echo "build is successfull"
-      echo "branch : ${BRANCH_NAME} ${env.BRANCH_NAME}"
+      echo "branch :  ${env.BRANCH_NAME}"
       echo "build id : ${BUILD_ID} ${env.BUILD_ID}"
       echo "build number: ${BUILD_NUMBER} ${env.BUILD_NUMBER}"
       echo "commit : ${GIT_COMMIT} ${env.GIT_COMMIT}"
