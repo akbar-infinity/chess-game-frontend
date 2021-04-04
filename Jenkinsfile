@@ -9,6 +9,12 @@ pipeline{
 
   stages{
 
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+
     stage ('install modules'){
       steps{
         sh 'echo "hi"'
