@@ -8,15 +8,15 @@ pipeline{
     stage ('install modules'){
       steps{
         sh 'npm config ls'
-        sh 'npm install --verbose --registry=https://registry.npmjs.org'
+        sh 'npm install'
       }
     }
 
-    // stage ('code quality'){
-    //   steps{
-    //     sh 'npm run-script lint'
-    //   }
-    // }
+    stage ('test'){
+      steps{
+        sh 'npm test --watch=false --progress=false'
+      }
+    }
 
     // stage ('build') {
     //   steps{
