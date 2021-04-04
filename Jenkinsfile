@@ -5,7 +5,7 @@ pipeline{
 
   environment{
     VERSION = "1.3.0"
-    GIT_TOKEN = credentials('git-api-token')
+    GIT_TOKEN = git
   }
 
   stages{
@@ -49,21 +49,33 @@ pipeline{
       echo "version ${VERSION}"
       sh "which curl"
       echo GIT_TOKEN
-      // sh '''
-      //   curl "https://api.GitHub.com/repos/akbar-infinity/chess-game-frontend/statuses/$GIT_COMMIT?access_token=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" \
-      //   -H "Content-Type: application/json" \
-      //   -X POST \
-      //   -d "{\"state\": \"success\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"http://206.189.129.97:8080/job/chess-app/$BUILD_NUMBER/console\"}"
-      // '''
+
+      withCredentials([
+        usernamePassword(credentials: 'git-api-token', usernameVariable: USER, passwordVariable: PASSWD)
+      ]) {
+      sh '''
+        curl "https://api.GitHub.com/repos/akbar-infinity/chess-game-frontend/statuses/$GIT_COMMIT?access_token=${PASSWD}" \
+        -H "Content-Type: application/json" \
+        -X POST \
+        -d "{\"state\": \"success\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"http://206.189.129.97:8080/job/chess-app/$BUILD_NUMBER/console\"}"
+      '''
+      }
+
+
     }
     failure {
       echo "build failed"
-      // sh '''
-      //   curl "https://api.GitHub.com/repos/akbar-infinity/chess-game-frontend/statuses/${GIT_COMMIT}?access_token=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" \
-      //   -H "Content-Type: application/json" \
-      //   -X POST \
-      //   -d "{\"state\": \"failure\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"http://206.189.129.97:8080/job/chess-app/18/console\"}"
-      // '''
+      withCredentials([
+        usernamePassword(credentials: 'git-api-token', usernameVariable: USER, passwordVariable: PASSWD)
+      ]) {
+      sh '''
+        curl "https://api.GitHub.com/repos/akbar-infinity/chess-game-frontend/statuses/${GIT_COMMIT}?access_token=${PASSWD}" \
+        -H "Content-Type: application/json" \
+        -X POST \
+        -d "{\"state\": \"failure\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"http://206.189.129.97:8080/job/chess-app/$BUILD_NUMBER/console\"}"
+      '''
+      }
+
     }
   }
 }
