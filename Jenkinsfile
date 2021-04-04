@@ -5,7 +5,6 @@ pipeline{
 
   environment{
     VERSION = "1.3.0"
-    GIT_TOKEN = git
   }
 
   stages{
