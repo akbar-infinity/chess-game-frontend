@@ -8,7 +8,7 @@ pipeline{
     stage ('install modules'){
       steps{
         sh 'npm config ls'
-        // sh 'npm install --verbose'
+        sh 'npm install --verbose --registry=https://registry.npmjs.org'
       }
     }
 
