@@ -48,7 +48,7 @@ pipeline{
       echo "version ${VERSION}"
       sh "which curl"
       sh '''
-        curl "https://api.GitHub.com/repos/akbar-infinity/chess-game-frontend/statuses/$GIT_COMMIT?access_token=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" \
+        curl "https://api.GitHub.com/repos/akbar-infinity/chess-game-frontend/statuses/$GIT_COMMIT?access_token=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" \
         -H "Content-Type: application/json" \
         -X POST \
         -d "{\"state\": \"success\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"http://206.189.129.97:8080/job/chess-app/$BUILD_NUMBER/console\"}"
@@ -57,7 +57,7 @@ pipeline{
     failure {
       echo "build failed"
       sh '''
-        curl "https://api.GitHub.com/repos/akbar-infinity/chess-game-frontend/statuses/${GIT_COMMIT}?access_token=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" \
+        curl "https://api.GitHub.com/repos/akbar-infinity/chess-game-frontend/statuses/${GIT_COMMIT}?access_token=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" \
         -H "Content-Type: application/json" \
         -X POST \
         -d "{\"state\": \"failure\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"http://206.189.129.97:8080/job/chess-app/18/console\"}"
