@@ -66,7 +66,6 @@ pipeline{
        withCredentials([
          usernamePassword(credentialsId: 'git-api-token', usernameVariable: 'USER', passwordVariable: 'PASS')
        ]) {
-    //   withCredentials([string(credentialsId: 'git-api-token1', variable: 'TOKEN')]) {
         sh '''
           curl "https://api.GitHub.com/repos/akbar-infinity/chess-game-frontend/statuses/${GIT_COMMIT}?access_token=${PASS}" \
           -H "Content-Type: application/json" \
