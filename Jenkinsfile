@@ -29,7 +29,10 @@ pipeline{
       cleanWs()
     }
     success {
-      echo "build is success full"
+      echo "build is successfull"
+      steps{
+        sh 'echo "Hello"'
+      }
     }
     failure {
       echo "build failed"
