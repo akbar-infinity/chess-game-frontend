@@ -3,6 +3,10 @@ pipeline{
 
   tools {nodejs "akbar-node"}
 
+  environment{
+    VERSION: "1.3.0"
+  }
+
   stages{
 
     stage ('install modules'){
@@ -30,9 +34,11 @@ pipeline{
     }
     success {
       echo "build is successfull"
-      steps{
-        sh 'echo "Hello"'
-      }
+      echo "branch : ${BRANCH_NAME} ${env.BRANCH_NAME}"
+      echo "build id : ${BUILD_ID} ${env.BUILD_ID}"
+      echo "build number: ${BUILD_NUMBER} ${env.BUILD_NUMBER}"
+      echo "commit : ${GIT_COMMIT} ${env.GIT_COMMIT}"
+      echo "version ${VERSION}"
     }
     failure {
       echo "build failed"
