@@ -40,6 +40,7 @@ pipeline{
       echo "build number: ${BUILD_NUMBER} ${env.BUILD_NUMBER}"
       echo "commit : ${GIT_COMMIT} ${env.GIT_COMMIT}"
       echo "version ${VERSION}"
+      sh "which curl"
     }
     failure {
       echo "build failed"
