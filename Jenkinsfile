@@ -1,7 +1,7 @@
 pipeline{
   agent any
 
-  tools {nodejs "nodejs:latest"}
+  tools {nodejs "akbar-node"}
 
   stages{
 
