@@ -48,12 +48,14 @@ pipeline{
       echo "version ${VERSION}"
       sh "which curl"
 
-      withCredentials([string(credentialsId: 'git-api-token1', variable: 'TOKEN')]) {
+      withCredentials([
+         usernamePassword(credentialsId: 'git-api-token', usernameVariable: 'USER', passwordVariable: 'PASS')
+       ]) {
         sh '''
-          curl "https://api.GitHub.com/repos/akbar-infinity/chess-game-frontend/statuses/$GIT_COMMIT?access_token=${TOKEN}" \
+          curl "https://api.GitHub.com/repos/akbar-infinity/chess-game-frontend/statuses/$GIT_COMMIT?access_token=${PASS}" \
           -H "Content-Type: application/json" \
           -X POST \
-          -d "{\"state\": \"success\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"http://206.189.129.97:8080/job/chess-app/$BUILD_NUMBER/console\"}"
+          -d '{"state": "success","context": "continuous-integration/jenkins", "description": "Jenkins", "target_url": "http://206.189.129.97:8080/job/chess-app/$BUILD_NUMBER/console"}'
         '''
       }
 
@@ -61,15 +63,15 @@ pipeline{
     }
     failure {
       echo "build failed"
-      // withCredentials([
-      //   usernamePassword(credentials: 'git-api-token', usernameVariable: USER, passwordVariable: PASSWD)
-      // ]) {
-      withCredentials([string(credentialsId: 'git-api-token1', variable: 'TOKEN')]) {
+       withCredentials([
+         usernamePassword(credentialsId: 'git-api-token', usernameVariable: 'USER', passwordVariable: 'PASS')
+       ]) {
+    //   withCredentials([string(credentialsId: 'git-api-token1', variable: 'TOKEN')]) {
         sh '''
-          curl "https://api.GitHub.com/repos/akbar-infinity/chess-game-frontend/statuses/${GIT_COMMIT}?access_token=${TOKEN}" \
+          curl "https://api.GitHub.com/repos/akbar-infinity/chess-game-frontend/statuses/${GIT_COMMIT}?access_token=${PASS}" \
           -H "Content-Type: application/json" \
           -X POST \
-          -d "{\"state\": \"failure\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"http://206.189.129.97:8080/job/chess-app/$BUILD_NUMBER/console\"}"
+          -d '{"state": "failure","context": "continuous-integration/jenkins", "description": "Jenkins", "target_url": "http://206.189.129.97:8080/job/chess-app/$BUILD_NUMBER/console"}'
         '''
       }
 
