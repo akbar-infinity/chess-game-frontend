@@ -11,7 +11,7 @@ pipeline{
 
     stage ('install modules'){
       steps{
-        sh 'npm config ls'
+        sh 'echo "hi"'
         // sh 'npm install'
       }
     }
