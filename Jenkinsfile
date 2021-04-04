@@ -4,7 +4,7 @@ pipeline{
   tools {nodejs "akbar-node"}
 
   environment{
-    VERSION: "1.3.0"
+    VERSION = "1.3.0"
   }
 
   stages{
