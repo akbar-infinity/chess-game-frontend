@@ -8,25 +8,31 @@ pipeline{
     stage ('install modules'){
       steps{
         sh 'npm config ls'
-        sh 'npm install'
+        // sh 'npm install'
       }
     }
 
-    stage ('code quality'){
-      steps{
-        sh 'npm run-script lint'
-      }
-    }
+    // stage ('code quality'){
+    //   steps{
+    //     sh 'npm run-script lint'
+    //   }
+    // }
 
-    stage ('build') {
-      steps{
-        sh 'npm run-script build --prod --aot --build-optimizer'
-      }
-    }
+    // stage ('build') {
+    //   steps{
+    //     sh 'npm run-script build --prod --aot --build-optimizer'
+    //   }
+    // }
   }
   post {
     always {
       cleanWs()
+    }
+    success {
+      echo "build is success full"
+    }
+    failure {
+      echo "build failed"
     }
   }
 }
