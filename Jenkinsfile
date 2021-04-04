@@ -37,6 +37,7 @@ pipeline{
   post {
     always {
       cleanWs()
+      githubPRStatusPublisher buildMessage: message(failureMsg: githubPRMessage('Can\'t set status; build failed.'), successMsg: githubPRMessage('Can\'t set status; build succeeded.')), statusMsg: githubPRMessage('${GITHUB_PR_COND_REF}runended'), statusVerifier: allowRunOnStatus('SUCCESS'), unstableAs: 'FAILURE'
     }
     success {
       echo "build is successfull"
@@ -64,16 +65,16 @@ pipeline{
     }
     failure {
       echo "build failed"
-      withCredentials([
-        usernamePassword(credentials: 'git-api-token', usernameVariable: USER, passwordVariable: PASSWD)
-      ]) {
-      sh '''
-        curl "https://api.GitHub.com/repos/akbar-infinity/chess-game-frontend/statuses/${GIT_COMMIT}?access_token=${PASSWD}" \
-        -H "Content-Type: application/json" \
-        -X POST \
-        -d "{\"state\": \"failure\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"http://206.189.129.97:8080/job/chess-app/$BUILD_NUMBER/console\"}"
-      '''
-      }
+      // withCredentials([
+      //   usernamePassword(credentials: 'git-api-token', usernameVariable: USER, passwordVariable: PASSWD)
+      // ]) {
+      // sh '''
+      //   curl "https://api.GitHub.com/repos/akbar-infinity/chess-game-frontend/statuses/${GIT_COMMIT}?access_token=${PASSWD}" \
+      //   -H "Content-Type: application/json" \
+      //   -X POST \
+      //   -d "{\"state\": \"failure\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"http://206.189.129.97:8080/job/chess-app/$BUILD_NUMBER/console\"}"
+      // '''
+      // }
 
     }
   }
