@@ -14,7 +14,72 @@ export class Knight implements ChessPiece {
   }
 
   getPossibleMoves(): Position[] {
-    return []
+    // let currentPosition =  JSON.parse(JSON.stringify(this.position));
+    // row +/- 2 then column +/-1
+    // row should not be greater than 8 & less than 1
+    // column should not be greater than 8 & less than 1
+    // column +/- 2 then row +/- 1
+    // row should not be greater than 8 & less than 1
+    // column should not be greater than 8 & less than 1
+    console.log('--ORIGINAL this.position--', this.position)
+    let output: Position[] = [];
+    let currentPosition = { ...this.position };
+    currentPosition.row -= 2;
+    currentPosition.column += 1;
+    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+      output.push(JSON.parse(JSON.stringify(currentPosition)));
+    }
+
+    currentPosition.column -= 2;
+    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+      output.push(JSON.parse(JSON.stringify(currentPosition)));
+    }
+
+    currentPosition = { ...this.position };
+    currentPosition.row -= 1;
+    currentPosition.column -= 2;
+    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+      output.push(JSON.parse(JSON.stringify(currentPosition)));
+    }
+
+    currentPosition = { ...this.position };
+    currentPosition.row += 1;
+    currentPosition.column -= 2;
+    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+      output.push(JSON.parse(JSON.stringify(currentPosition)));
+    }
+
+    currentPosition = { ...this.position };
+    currentPosition.row -= 1;
+    currentPosition.column += 2;
+    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+      output.push(JSON.parse(JSON.stringify(currentPosition)));
+    }
+
+    currentPosition = { ...this.position };
+    currentPosition.row += 1;
+    currentPosition.column += 2;
+    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+      output.push(JSON.parse(JSON.stringify(currentPosition)));
+    }
+
+    currentPosition = { ...this.position };
+    currentPosition.row += 2;
+    currentPosition.column += 1;
+    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+      output.push(JSON.parse(JSON.stringify(currentPosition)));
+    }
+
+    currentPosition = { ...this.position };
+    currentPosition.row += 2;
+    currentPosition.column -= 1;
+    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+      output.push(JSON.parse(JSON.stringify(currentPosition)));
+    }
+
+    console.log('--this.position--', JSON.parse(JSON.stringify(this.position)))
+    console.log('--kinght output--', output)
+    return output;
   }
 
   // TODO check why typescript doesn't throw error for move method properties

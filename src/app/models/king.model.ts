@@ -23,7 +23,66 @@ export class King implements ChessPiece {
   }
 
   getPossibleMoves(): Position[] {
-    return [];
+    let output: Position[] = [];
+    let currentPosition = { ...this.position };
+    currentPosition.row += 1;
+    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+    output.push({ ...currentPosition });
+    }
+
+    currentPosition = { ...this.position };
+    currentPosition.row += 1;
+    currentPosition.column += 1;
+    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+    output.push({ ...currentPosition });
+    }
+
+    currentPosition = { ...this.position };
+    currentPosition.row += 1;
+    currentPosition.column -= 1;
+    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+    output.push({ ...currentPosition });
+    }
+
+    currentPosition = { ...this.position };
+    currentPosition.column += 1;
+    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+      output.push({ ...currentPosition });
+    }
+
+    currentPosition = { ...this.position };
+    currentPosition.column -= 1;
+    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+      output.push({ ...currentPosition });
+    }
+
+
+    currentPosition = { ...this.position };
+    currentPosition.row -= 1;
+    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+      output.push({ ...currentPosition });
+    }
+
+    currentPosition = { ...this.position };
+    currentPosition.row -= 1;
+    currentPosition.column -= 1;
+    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+      output.push({ ...currentPosition });
+    }
+
+    currentPosition = { ...this.position };
+    currentPosition.row -= 1;
+    currentPosition.column += 1;
+    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+      output.push({ ...currentPosition });
+    }
+
+
+    return output;
+
+
+
+
   }
 
   // TODO check why typescript doesn't throw error for move method properties

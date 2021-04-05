@@ -15,7 +15,6 @@ import { ChessPiece, ChessPieceColor, Position } from './models/types';
 export class AppComponent implements OnInit {
   title = 'chess-app';
   playingWithBlack = true;
-
   rowValues = [1, 2, 3, 4, 5, 6, 7, 8];
   columnValues = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -103,6 +102,11 @@ export class AppComponent implements OnInit {
 
     // this.positions[4][3] = new Bishop('White', { row: 5, column: 4 });
     console.log('positions : ', this.positions);
+
+    // let kking = new King('White');
+    // kking.move({ row: 5, column: 7 });
+    // this.positions[4][6] = kking;
+
   }
 
   isDarkBackground(row: number, column: number): boolean {
@@ -141,4 +145,6 @@ export class AppComponent implements OnInit {
     }
     return hightlight;
   }
+
+
 }
