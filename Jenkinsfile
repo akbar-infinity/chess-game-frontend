@@ -38,6 +38,7 @@ pipeline{
     always {
       cleanWs()
     }
+    
     success {
       echo "build is successfull"
       echo "branch :  ${env.BRANCH_NAME}"
@@ -60,6 +61,7 @@ pipeline{
       }
 
     }
+
     failure {
       echo "build failed"
        withCredentials([
