@@ -59,7 +59,6 @@ pipeline{
         '''
       }
 
-
     }
     failure {
       echo "build failed"
