@@ -15,11 +15,59 @@ export class Rook implements ChessPiece {
   }
 
   getPossibleMoves() {
+    // row++ untill row < 8  
+    // column ++ untill column < 8
+    // row-- untill row > 1  
+    // column -- untill column > 1
+    let output: Position[] = [];
+    let currentPosition = { ...this.position };
 
+    while (currentPosition.row < 8) {
+      currentPosition.row++;
+
+      if (currentPosition.row <= 8) {
+        output.push({ ...currentPosition });
+      }
+    }
+
+    currentPosition = { ...this.position };
+    while (currentPosition.column > 1) {
+      currentPosition.column--;
+
+      if (currentPosition.column >= 1) {
+        output.push({ ...currentPosition });
+      }
+    }
+
+    currentPosition = { ...this.position };
+    while (currentPosition.column < 8) {
+      currentPosition.column++;
+
+      if (currentPosition.column <= 8) {
+        output.push({ ...currentPosition });
+      }
+    }
+
+    currentPosition = { ...this.position };
+    while (currentPosition.row > 1) {
+      currentPosition.row--;
+
+      if (currentPosition.row >= 1) {
+        output.push({ ...currentPosition });
+      }
+    }
+
+
+
+    return output;
   }
 
   move(destinationPosition: Position) {
-    this.position = destinationPosition;
+
+
+
+
+
   }
 
 }
