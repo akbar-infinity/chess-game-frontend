@@ -14,7 +14,7 @@ import { ChessPiece } from './models/types';
 })
 export class AppComponent implements OnInit {
   title = 'chess-app';
-
+  playingWithBlack = true;
   rowValues = [1, 2, 3, 4, 5, 6, 7, 8];
   columnValues = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -86,6 +86,10 @@ export class AppComponent implements OnInit {
 
     this.positions[6][4] = whiteBishop1;
     console.log('positions : ', this.positions);
+
+    // let kking = new King('White');
+    // kking.move({ row: 5, column: 7 });
+    // this.positions[4][6] = kking;
 
   }
 
@@ -170,4 +174,6 @@ export class AppComponent implements OnInit {
     }
     return hightlight;
   }
+
+  
 }
