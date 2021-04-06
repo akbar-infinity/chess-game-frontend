@@ -1,0 +1,34 @@
+pipeline{
+  agent any
+
+  tools {nodejs "akbar-node"}
+
+  environment{
+    VERSION = "1.3.0"
+  }
+
+  stages{
+
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+
+    stage ('install modules'){
+      steps{
+        sh 'echo "hi hello"'
+        // sh 'npm install'
+      }
+    }
+
+
+  }
+  post {
+    always {
+      cleanWs()
+    }
+
+
+  }
+}
