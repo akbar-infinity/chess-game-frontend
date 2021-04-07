@@ -17,7 +17,7 @@ pipeline{
 
     stage ('install modules'){
       steps{
-        sh 'npm install'
+        sh 'npm install --verbose'
       }
     }
 
