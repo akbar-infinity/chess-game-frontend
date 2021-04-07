@@ -1,0 +1,20 @@
+<h1 style="text-align: center;">Welcome to my chess app</h1>
+
+<div class="chessboard" [ngClass]="{'chess-board-rotate':playingWithBlack}">
+
+  <div class="chess-row" *ngFor="let rows of positions;let row = index;">
+
+    <div [ngClass]="{
+      'darkbackground': isDarkBackground(row, column),
+      'highlight': isHighlated(row, column),
+      'chess-board-rotate':playingWithBlack
+    }" *ngFor="let columns of rows;let column = index;" (click)="onPieceSelect(row, column)">
+
+      <img src="{{positions[row][column].image}}">
+
+      <sub>r{{rowValues[row]}} - c{{columnValues[column]}} </sub>
+
+    </div>
+  </div>
+
+</div>

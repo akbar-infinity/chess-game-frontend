@@ -1,0 +1,109 @@
+.chessboard {
+  border: 1px solid #ccc;
+  height: 600px;
+  width: 600px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+}
+
+.chess-row {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.chess-row > div {
+  // background-color: #f1f1f1;
+  width: 75px;
+  height: 75px;
+  text-align: center;
+  line-height: 75px;
+  // border: 1px solid black;
+}
+
+.chess-row > div:hover {
+  background-color: lightblue;
+}
+
+.darkbackground {
+  background-color: #ddd;
+}
+
+.highlight {
+  background-color: lightblue;
+}
+
+/* Chess pieces B / W
+   ----------------------------- */
+.BP {
+  background-image: url(https://maxcdn.icons8.com/iOS7/PNG/25/Gaming/pawn_filled-25.png);
+  background-repeat: no-repeat;
+}
+.WP {
+  background-image: url(https://maxcdn.icons8.com/iOS7/PNG/25/Gaming/pawn-25.png);
+  background-repeat: no-repeat;
+}
+
+/*
+ * Rooks
+ */
+
+.BR {
+  background-image: url(https://maxcdn.icons8.com/iOS7/PNG/25/Gaming/rook_filled-25.png);
+  background-repeat: no-repeat;
+}
+.WR {
+  background-image: url(https://maxcdn.icons8.com/iOS7/PNG/25/Gaming/rook-25.png);
+  background-repeat: no-repeat;
+}
+
+/*
+ * Knights
+ */
+
+.BH {
+  background-image: url(https://maxcdn.icons8.com/iOS7/PNG/25/Gaming/knight_filled-25.png);
+  background-repeat: no-repeat;
+}
+.WH {
+  background-image: url(https://maxcdn.icons8.com/iOS7/PNG/25/Gaming/knight-25.png);
+  background-repeat: no-repeat;
+}
+
+/*
+ * Bishops
+ */
+
+.BB {
+  background-image: url(https://maxcdn.icons8.com/iOS7/PNG/25/Gaming/bishop_filled-25.png);
+  background-repeat: no-repeat;
+}
+.WB {
+  background-image: url(https://maxcdn.icons8.com/iOS7/PNG/25/Gaming/bishop-25.png);
+  background-repeat: no-repeat;
+}
+
+/*
+ * Queen, King
+ */
+
+.WQ {
+  background-image: url(https://maxcdn.icons8.com/iOS7/PNG/25/Gaming/queen-25.png);
+  background-repeat: no-repeat;
+}
+.BQ {
+  background-image: url(https://maxcdn.icons8.com/iOS7/PNG/25/Gaming/queen_filled-25.png);
+  background-repeat: no-repeat;
+}
+.WK {
+  background-image: url(https://maxcdn.icons8.com/iOS7/PNG/25/Gaming/king-25.png);
+  background-repeat: no-repeat;
+}
+.BK {
+  background-image: url(https://maxcdn.icons8.com/iOS7/PNG/25/Gaming/king_filled-25.png);
+  background-repeat: no-repeat;
+}
+
+.chess-board-rotate{
+  transform: rotate(180deg);
+}
