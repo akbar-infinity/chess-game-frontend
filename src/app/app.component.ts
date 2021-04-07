@@ -14,7 +14,7 @@ import { ChessPiece } from './models/types';
 })
 export class AppComponent implements OnInit {
   title = 'chess-app';
-  playingWithBlack = true;
+  playingWithBlack = !true;
   rowValues = [1, 2, 3, 4, 5, 6, 7, 8];
   columnValues = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -66,16 +66,15 @@ export class AppComponent implements OnInit {
     this.positions.push(row1);
     this.positions.push(blackPawns);
 
-    const whiteBishop1 = new Bishop('White', { row: 8, column: 3 });
     for (let row = 3; row < 7; row++) {
-      this.positions.push(['', whiteBishop1,'', '','', '','', ''])
+      this.positions.push(['', '','', '','', '','', ''])
     }
 
     this.positions.push(whitePawns);
 
     const whiteRook1 = new Rook('White', { row: 8, column: 1 });
     const whiteKnight1 = new Knight('White', { row: 8, column: 2 });
-
+    const whiteBishop1 = new Bishop('White', { row: 8, column: 3 });
     const whiteQueen = new Queen('White');
     const whiteKing = new King('White');
     const whiteBishop2 = new Bishop('White', { row: 8, column: 6 });
@@ -84,12 +83,7 @@ export class AppComponent implements OnInit {
     let row8 = [whiteRook1, whiteKnight1, whiteBishop1, whiteQueen, whiteKing, whiteBishop2, whiteKnight2, whiteRook2];
     this.positions.push(row8);
 
-    this.positions[6][4] = whiteBishop1;
     console.log('positions : ', this.positions);
-
-    // let kking = new King('White');
-    // kking.move({ row: 5, column: 7 });
-    // this.positions[4][6] = kking;
 
   }
 
@@ -102,50 +96,6 @@ export class AppComponent implements OnInit {
     }
     if (row % 2 === 0 && column % 2 === 1) {
       return true;
-    }
-    return false;
-  }
-
-  getInitialPosition(row: number, column: number, className: string): boolean {
-    row = row + 1;
-    column = column + 1;
-    switch (className.toUpperCase()) {
-      case 'BP':
-        if (row === 2) return true;
-        break;
-      case 'WP':
-        if (row === 7) return true;
-        break;
-      case 'BR':
-        if (row === 1 && (column === 1 || column === 8)) return true;
-        break;
-      case 'WR':
-        if (row === 8 && (column === 1 || column === 8)) return true;
-        break;
-      case 'BH':
-        if (row === 1 && (column === 2 || column === 7)) return true;
-        break;
-      case 'WH':
-        if (row === 8 && (column === 2 || column === 7)) return true;
-        break;
-      case 'BB':
-        if (row === 1 && (column === 3 || column === 6)) return true;
-        break;
-      case 'WB':
-        if (row === 8 && (column === 3 || column === 6)) return true;
-        break;
-      case 'WQ':
-        if (row === 8 && column === 4) return true;
-        break;
-      case 'BQ':
-        if (row === 1 && column === 4) return true;
-        break;
-      case 'WK':
-        if (row === 8 && column === 5) return true;
-        break;
-      case 'BK':
-        if (row === 1 && column === 5) return true;
-        break;
     }
     return false;
   }
@@ -175,5 +125,5 @@ export class AppComponent implements OnInit {
     return hightlight;
   }
 
-  
+
 }
