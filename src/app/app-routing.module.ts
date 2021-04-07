@@ -9,7 +9,7 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'randomid',
+    path: ':gameId',
     component: ChessBoardComponent
   }
 ];
