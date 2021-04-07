@@ -17,7 +17,7 @@ pipeline{
 
     stage ('install modules'){
       steps{
-        sh 'echo "hi hello"'
+        sh 'echo "hi"'
         // sh 'npm install'
       }
     }
