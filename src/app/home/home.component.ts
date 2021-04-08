@@ -17,17 +17,20 @@ export class HomeComponent implements OnInit {
 
   generateRandomId() {
     // generate random string and assign that string to gameId variable
+    let gameId = Math.random().toString(36).substring(7);
+    console.log("random", gameId);
+    return gameId;
 
   }
 
   newGame() {
     console.log('new game clicked');
-    this.router.navigate([`${this.gameId}`]);
+    this.router.navigate([`${this.generateRandomId()}`]);
   }
 
   joinGame() {
     console.log('join game clicked');
-    this.router.navigate([`${this.gameId}`]);
+    this.router.navigate([`${this.generateRandomId()}`]);
   }
 
 }
