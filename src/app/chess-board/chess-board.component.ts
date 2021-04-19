@@ -17,6 +17,8 @@ export class ChessBoardComponent implements OnInit {
   rowValues = [1, 2, 3, 4, 5, 6, 7, 8];
   columnValues = [1, 2, 3, 4, 5, 6, 7, 8];
 
+  clientSocket: WebSocket;
+
   positions = [];
 
   hightlatedPositions = [];
@@ -83,6 +85,25 @@ export class ChessBoardComponent implements OnInit {
     this.positions.push(row8);
 
     console.log('positions : ', this.positions);
+
+    this.clientSocket = new WebSocket('wss://echo.websocket.org');
+
+    const socket = this.clientSocket;
+
+    this.clientSocket.onopen = function (error:any) {
+      console.log('connection open', error);
+
+      socket.send('hello world');
+    }
+
+    this.clientSocket.onerror = function (error:any) {
+      console.log('connection error', error);
+    }
+
+    this.clientSocket.onmessage = function (error:any) {
+      console.log('message', error);
+    }
+
 
   }
 
