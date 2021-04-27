@@ -26,14 +26,14 @@ export class Bishop implements ChessPiece {
       let currentPosition: Position = this.getCurrentPosition();
 
       // RIGHT DOWN
-      // increment row + increment column upto (row < 8) & (column < 8)
-      while(currentPosition.row < 8 && currentPosition.column < 8) {
+      // increment row + increment column upto (row < 7) & (column < 7)
+      while(currentPosition.row < 7 && currentPosition.column < 7) {
         console.log('in right down', currentPosition);
         currentPosition.row++;
         currentPosition.column++;
         // [currentPosition.row, currentPosition.column] = [currentPosition.column, currentPosition.row];
         currentPosition['direction'] = 'right down';
-        if (currentPosition.row != 9 && currentPosition.column != 9) {
+        if (currentPosition.row != 8 && currentPosition.column != 8) {
           output.push(JSON.parse(JSON.stringify(currentPosition)));
         }
 
@@ -42,13 +42,13 @@ export class Bishop implements ChessPiece {
       currentPosition = this.getCurrentPosition();
 
       // LEFT UP
-      // decrement row + decrement column upto (row >= 1) & (column >= 1)
-      while(currentPosition.row >= 1 && currentPosition.column >= 1) {
+      // decrement row + decrement column upto (row >= 0) & (column >= 0)
+      while(currentPosition.row >= 0 && currentPosition.column >= 0) {
         console.log('in left up', currentPosition);
         currentPosition.row--;
         currentPosition.column--;
         currentPosition['direction'] = 'left up';
-        if ((currentPosition.row !=0) && (currentPosition.column != 0)) {
+        if ((currentPosition.row !=-1) && (currentPosition.column != -1)) {
           output.push(JSON.parse(JSON.stringify(currentPosition)));
         }
       }
@@ -56,26 +56,26 @@ export class Bishop implements ChessPiece {
       currentPosition = this.getCurrentPosition();
 
       // LEFT DOWN
-      // increment row + decrement column upto (row <= 8) OR (column >= 1)
-      while((currentPosition.row <= 8) && (currentPosition.column >= 1)) {
+      // increment row + decrement column upto (row <= 7) OR (column >= 0)
+      while((currentPosition.row <= 7) && (currentPosition.column >= 0)) {
         console.log('in left down', currentPosition);
         currentPosition.row++;
         currentPosition.column--;
         currentPosition['direction'] = 'left down';
-        if ((currentPosition.row != 9) && (currentPosition.column != 0)) {
+        if ((currentPosition.row != 8) && (currentPosition.column != -1)) {
           output.push(JSON.parse(JSON.stringify(currentPosition)));
         }
       }
 
       currentPosition = this.getCurrentPosition();
       // RIGHT UP
-      // decrement row + increment column upto (row >= 1) & (column <= 8)
-      while((currentPosition.row >= 1) && (currentPosition.column <= 8)) {
+      // decrement row + increment column upto (row >= 0) & (column <= 7)
+      while((currentPosition.row >= 0) && (currentPosition.column <= 7)) {
         console.log('in right up', currentPosition);
         currentPosition.row--;
         currentPosition.column++;
         currentPosition['direction'] = 'right up';
-        if ((currentPosition.column != 9) && (currentPosition.row != 0)) {
+        if ((currentPosition.column != 8) && (currentPosition.row != -1)) {
           output.push(JSON.parse(JSON.stringify(currentPosition)));
         }
 
@@ -96,8 +96,24 @@ export class Bishop implements ChessPiece {
   }
 
   // TODO check why typescript doesn't throw error for move method properties
-  move(destinationPosition: Position) {
-    this.position = destinationPosition;
+  move(destinationPosition: Position, allPositions: Array<any>) {
+    if (this.isValidMove(destinationPosition)) {
+      allPositions[this.position.row][this.position.column] = '';
+      this.position = destinationPosition;
+      allPositions[this.position.row][this.position.column] = this;
+    }
+  }
+
+  isValidMove(position: Position) {
+    let validMove = false;
+    const possiblePositions = this.getPossibleMoves();
+    for(let i = 0; i < possiblePositions.length; i++) {
+      if (position.row === possiblePositions[i].row && position.column === possiblePositions[i].column) {
+        validMove = true;
+        break;
+      }
+    }
+    return validMove;
   }
 
 }

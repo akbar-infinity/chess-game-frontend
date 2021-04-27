@@ -4,20 +4,20 @@ export class King implements ChessPiece {
   image = '';
   name = 'King';
   isAlive = true;
-  position: Position;
 
-  constructor(public color: Color) {
+  constructor(public color: Color, public position: Position) {
+
     if (this.color.toUpperCase() === 'BLACK') {
-      this.position = {
-        row: 1,
-        column: 5
-      };
+      // this.position = {
+      //   row: 0,
+      //   column: 4
+      // };
       this.image = 'https://maxcdn.icons8.com/iOS7/PNG/25/Gaming/king_filled-25.png';
     } else {
-      this.position = {
-        row: 8,
-        column: 5
-      }
+      // this.position = {
+      //   row: 7,
+      //   column: 4
+      // }
       this.image = 'https://maxcdn.icons8.com/iOS7/PNG/25/Gaming/king-25.png';
     }
   }
@@ -26,68 +26,78 @@ export class King implements ChessPiece {
     let output: Position[] = [];
     let currentPosition = { ...this.position };
     currentPosition.row += 1;
-    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
-    output.push({ ...currentPosition });
+    if (currentPosition.row <= 7 && currentPosition.row >= 0 && currentPosition.column <= 7 && currentPosition.column >= 0) {
+      output.push({ ...currentPosition });
     }
 
     currentPosition = { ...this.position };
     currentPosition.row += 1;
     currentPosition.column += 1;
-    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+    if (currentPosition.row <= 7 && currentPosition.row >= 0 && currentPosition.column <= 7 && currentPosition.column >= 0) {
     output.push({ ...currentPosition });
     }
 
     currentPosition = { ...this.position };
     currentPosition.row += 1;
     currentPosition.column -= 1;
-    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+    if (currentPosition.row <= 7 && currentPosition.row >= 0 && currentPosition.column <= 7 && currentPosition.column >= 0) {
     output.push({ ...currentPosition });
     }
 
     currentPosition = { ...this.position };
     currentPosition.column += 1;
-    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+    if (currentPosition.row <= 7 && currentPosition.row >= 0 && currentPosition.column <= 7 && currentPosition.column >= 0) {
       output.push({ ...currentPosition });
     }
 
     currentPosition = { ...this.position };
     currentPosition.column -= 1;
-    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+    if (currentPosition.row <= 7 && currentPosition.row >= 0 && currentPosition.column <= 7 && currentPosition.column >= 0) {
       output.push({ ...currentPosition });
     }
 
 
     currentPosition = { ...this.position };
     currentPosition.row -= 1;
-    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+    if (currentPosition.row <= 7 && currentPosition.row >= 0 && currentPosition.column <= 7 && currentPosition.column >= 0) {
       output.push({ ...currentPosition });
     }
 
     currentPosition = { ...this.position };
     currentPosition.row -= 1;
     currentPosition.column -= 1;
-    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+    if (currentPosition.row <= 7 && currentPosition.row >= 0 && currentPosition.column <= 7 && currentPosition.column >= 0) {
       output.push({ ...currentPosition });
     }
 
     currentPosition = { ...this.position };
     currentPosition.row -= 1;
     currentPosition.column += 1;
-    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+    if (currentPosition.row <= 7 && currentPosition.row >= 0 && currentPosition.column <= 7 && currentPosition.column >= 0) {
       output.push({ ...currentPosition });
     }
-
-
     return output;
-
-
-
-
   }
 
   // TODO check why typescript doesn't throw error for move method properties
-  move(destinationPosition: Position) {
-    this.position = destinationPosition;
+  move(destinationPosition: Position, allPositions: Array<any>) {
+    if (this.isValidMove(destinationPosition)) {
+      allPositions[this.position.row][this.position.column] = '';
+      this.position = destinationPosition;
+      allPositions[this.position.row][this.position.column] = this;
+    }
+  }
+
+  isValidMove(position: Position) {
+    let validMove = false;
+    const possiblePositions = this.getPossibleMoves();
+    for(let i = 0; i < possiblePositions.length; i++) {
+      if (position.row === possiblePositions[i].row && position.column === possiblePositions[i].column) {
+        validMove = true;
+        break;
+      }
+    }
+    return validMove;
   }
 
 }

@@ -15,44 +15,44 @@ export class Rook implements ChessPiece {
   }
 
   getPossibleMoves() {
-    // row++ untill row < 8  
+    // row++ untill row < 8
     // column ++ untill column < 8
-    // row-- untill row > 1  
+    // row-- untill row > 1
     // column -- untill column > 1
     let output: Position[] = [];
     let currentPosition = { ...this.position };
 
-    while (currentPosition.row < 8) {
+    while (currentPosition.row < 7) {
       currentPosition.row++;
 
-      if (currentPosition.row <= 8) {
+      if (currentPosition.row <= 7) {
         output.push({ ...currentPosition });
       }
     }
 
     currentPosition = { ...this.position };
-    while (currentPosition.column > 1) {
+    while (currentPosition.column > 0) {
       currentPosition.column--;
 
-      if (currentPosition.column >= 1) {
+      if (currentPosition.column >= 0) {
         output.push({ ...currentPosition });
       }
     }
 
     currentPosition = { ...this.position };
-    while (currentPosition.column < 8) {
+    while (currentPosition.column < 7) {
       currentPosition.column++;
 
-      if (currentPosition.column <= 8) {
+      if (currentPosition.column <= 7) {
         output.push({ ...currentPosition });
       }
     }
 
     currentPosition = { ...this.position };
-    while (currentPosition.row > 1) {
+    while (currentPosition.row > 0) {
       currentPosition.row--;
 
-      if (currentPosition.row >= 1) {
+      if (currentPosition.row >= 0) {
         output.push({ ...currentPosition });
       }
     }
@@ -62,12 +62,24 @@ export class Rook implements ChessPiece {
     return output;
   }
 
-  move(destinationPosition: Position) {
+  move(destinationPosition: Position, allPositions: Array<any>) {
+    if (this.isValidMove(destinationPosition)) {
+      allPositions[this.position.row][this.position.column] = '';
+      this.position = destinationPosition;
+      allPositions[this.position.row][this.position.column] = this;
+    }
+  }
 
-
-
-
-
+  isValidMove(position: Position) {
+    let validMove = false;
+    const possiblePositions = this.getPossibleMoves();
+    for(let i = 0; i < possiblePositions.length; i++) {
+      if (position.row === possiblePositions[i].row && position.column === possiblePositions[i].column) {
+        validMove = true;
+        break;
+      }
+    }
+    return validMove;
   }
 
 }

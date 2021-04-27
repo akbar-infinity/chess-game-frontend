@@ -26,54 +26,54 @@ export class Knight implements ChessPiece {
     let currentPosition = { ...this.position };
     currentPosition.row -= 2;
     currentPosition.column += 1;
-    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+    if (currentPosition.row <= 7 && currentPosition.row >= 0 && currentPosition.column <= 7 && currentPosition.column >= 0) {
       output.push(JSON.parse(JSON.stringify(currentPosition)));
     }
 
     currentPosition.column -= 2;
-    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+    if (currentPosition.row <= 7 && currentPosition.row >= 0 && currentPosition.column <= 7 && currentPosition.column >= 0) {
       output.push(JSON.parse(JSON.stringify(currentPosition)));
     }
 
     currentPosition = { ...this.position };
     currentPosition.row -= 1;
     currentPosition.column -= 2;
-    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+    if (currentPosition.row <= 7 && currentPosition.row >= 0 && currentPosition.column <= 7 && currentPosition.column >= 0) {
       output.push(JSON.parse(JSON.stringify(currentPosition)));
     }
 
     currentPosition = { ...this.position };
     currentPosition.row += 1;
     currentPosition.column -= 2;
-    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+    if (currentPosition.row <= 7 && currentPosition.row >= 0 && currentPosition.column <= 7 && currentPosition.column >= 0) {
       output.push(JSON.parse(JSON.stringify(currentPosition)));
     }
 
     currentPosition = { ...this.position };
     currentPosition.row -= 1;
     currentPosition.column += 2;
-    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+    if (currentPosition.row <= 7 && currentPosition.row >= 0 && currentPosition.column <= 7 && currentPosition.column >= 0) {
       output.push(JSON.parse(JSON.stringify(currentPosition)));
     }
 
     currentPosition = { ...this.position };
     currentPosition.row += 1;
     currentPosition.column += 2;
-    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+    if (currentPosition.row <= 7 && currentPosition.row >= 0 && currentPosition.column <= 7 && currentPosition.column >= 0) {
       output.push(JSON.parse(JSON.stringify(currentPosition)));
     }
 
     currentPosition = { ...this.position };
     currentPosition.row += 2;
     currentPosition.column += 1;
-    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+    if (currentPosition.row <= 7 && currentPosition.row >= 0 && currentPosition.column <= 7 && currentPosition.column >= 0) {
       output.push(JSON.parse(JSON.stringify(currentPosition)));
     }
 
     currentPosition = { ...this.position };
     currentPosition.row += 2;
     currentPosition.column -= 1;
-    if (currentPosition.row <= 8 && currentPosition.row >= 1 && currentPosition.column <= 8 && currentPosition.column >= 1) {
+    if (currentPosition.row <= 7 && currentPosition.row >= 0 && currentPosition.column <= 7 && currentPosition.column >= 0) {
       output.push(JSON.parse(JSON.stringify(currentPosition)));
     }
 
@@ -83,8 +83,24 @@ export class Knight implements ChessPiece {
   }
 
   // TODO check why typescript doesn't throw error for move method properties
-  move(destinationPosition: Position) {
-    this.position = destinationPosition;
+  move(destinationPosition: Position, allPositions: Array<any>) {
+    if (this.isValidMove(destinationPosition)) {
+      allPositions[this.position.row][this.position.column] = '';
+      this.position = destinationPosition;
+      allPositions[this.position.row][this.position.column] = this;
+    }
+  }
+
+  isValidMove(position: Position) {
+    let validMove = false;
+    const possiblePositions = this.getPossibleMoves();
+    for(let i = 0; i < possiblePositions.length; i++) {
+      if (position.row === possiblePositions[i].row && position.column === possiblePositions[i].column) {
+        validMove = true;
+        break;
+      }
+    }
+    return validMove;
   }
 
 }

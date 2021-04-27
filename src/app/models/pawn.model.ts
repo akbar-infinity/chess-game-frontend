@@ -26,28 +26,28 @@ export class Pawn implements ChessPiece {
     if (this.color.toUpperCase() == 'BLACK') {
       currentPosotion = { ...this.position }
       currentPosotion.row += 1;
-      if (currentPosotion.row <= 8 && currentPosotion.row >= 1 && currentPosotion.column <= 8 && currentPosotion.column >= 1) {
+      if (currentPosotion.row <= 7 && currentPosotion.row >= 0 && currentPosotion.column <= 7 && currentPosotion.column >= 0) {
         output.push({ ...currentPosotion });
       }
 
       currentPosotion = { ...this.position }
-      if (this.position.row == 2) {
+      if (this.position.row == 1) {
         currentPosotion.row += 2;
-        if (currentPosotion.row <= 8 && currentPosotion.row >= 1 && currentPosotion.column <= 8 && currentPosotion.column >= 1) {
+        if (currentPosotion.row <= 7 && currentPosotion.row >= 0 && currentPosotion.column <= 7 && currentPosotion.column >= 0) {
           output.push(currentPosotion);
         }
       }
     } else {
       currentPosotion = { ...this.position }
       currentPosotion.row -= 1;
-      if (currentPosotion.row <= 8 && currentPosotion.row >= 1 && currentPosotion.column <= 8 && currentPosotion.column >= 1) {
+      if (currentPosotion.row <= 7 && currentPosotion.row >= 0 && currentPosotion.column <= 7 && currentPosotion.column >= 0) {
         output.push({ ...currentPosotion });
       }
 
       currentPosotion = { ...this.position }
-      if (this.position.row == 7) {
+      if (this.position.row == 6) {
         currentPosotion.row -= 2;
-        if (currentPosotion.row <= 8 && currentPosotion.row >= 1 && currentPosotion.column <= 8 && currentPosotion.column >= 1) {
+        if (currentPosotion.row <= 7 && currentPosotion.row >= 0 && currentPosotion.column <= 7 && currentPosotion.column >= 0) {
           output.push(currentPosotion);
         }
       }
@@ -56,8 +56,24 @@ export class Pawn implements ChessPiece {
   }
 
   // TODO check why typescript doesn't throw error for move method properties
-  move(destinationPosition: Position) {
-    this.position = destinationPosition;
+  move(destinationPosition: Position, allPositions: Array<any>) {
+    if (this.isValidMove(destinationPosition)) {
+      allPositions[this.position.row][this.position.column] = '';
+      this.position = destinationPosition;
+      allPositions[this.position.row][this.position.column] = this;
+    }
+  }
+
+  isValidMove(position: Position) {
+    let validMove = false;
+    const possiblePositions = this.getPossibleMoves();
+    for(let i = 0; i < possiblePositions.length; i++) {
+      if (position.row === possiblePositions[i].row && position.column === possiblePositions[i].column) {
+        validMove = true;
+        break;
+      }
+    }
+    return validMove;
   }
 
 }

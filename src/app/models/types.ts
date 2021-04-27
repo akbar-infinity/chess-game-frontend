@@ -3,7 +3,7 @@ export interface Position {
   column: number;
 }
 
-export type Color = 'White' | 'Black';
+export type Color = 'WHITE' | 'BLACK';
 
 export interface ChessPieceMove {
   (destinationPosition: Position): void;
@@ -15,7 +15,7 @@ export interface ChessPiece {
   isAlive: boolean;
   color: Color;
   position: Position;
-  getPossibleMoves(): void;
-  move(destinationPosition: Position): void;
+  getPossibleMoves(): Position[];
+  move(destinationPosition: Position, allPositions: Array<any>): void;
   // move: ChessPieceMove;
 }

@@ -5,6 +5,9 @@ import { King } from '../models/king.model';
 import { Queen } from '../models/queen.model';
 import { Bishop } from '../models/bishop.model';
 import { Pawn } from '../models/pawn.model';
+import {ChessSocketService} from '../chess-socket.service';
+import { ActivatedRoute } from '@angular/router';
+import { ChessPiece, Color } from '../models/types';
 
 @Component({
   selector: 'app-chess-board',
@@ -14,14 +17,17 @@ import { Pawn } from '../models/pawn.model';
 export class ChessBoardComponent implements OnInit {
   title = 'chess-app';
   playingWithBlack = !true;
-  rowValues = [1, 2, 3, 4, 5, 6, 7, 8];
-  columnValues = [1, 2, 3, 4, 5, 6, 7, 8];
+  rowValues = [0,1, 2, 3, 4, 5, 6, 7];
+  columnValues = [0, 1, 2, 3, 4, 5, 6, 7];
 
-  clientSocket: WebSocket;
+  // clientSocket: WebSocket;
 
   positions = [];
 
   hightlatedPositions = [];
+
+  selectedPiece: ChessPiece;
+  currentTurn: Color = 'WHITE';
 
   moves = [
     {
@@ -44,66 +50,48 @@ export class ChessBoardComponent implements OnInit {
     }
   ]
 
+  constructor(private ws: ChessSocketService, private route: ActivatedRoute) { }
+
   ngOnInit() {
 
-    const whitePawns = [];
-    const blackPawns = [];
-    for(let i = 1; i < 9; i++) {
-      const whitePawn = new Pawn('White', { row: 7, column: i });
-      const blackPawn = new Pawn('Black', { row: 2, column: i });
-      whitePawns.push(whitePawn);
-      blackPawns.push(blackPawn);
-    }
-
-    const blackRook1 = new Rook('Black', { row: 1, column: 1 });
-    const blackKnight1 = new Knight('Black', { row: 1, column: 2 });
-    const blackBishop1 = new Bishop('Black', { row: 1, column: 3 });
-    const blackQueen = new Queen('Black');
-    const blackKing = new King('Black');
-    const blackBishop2 = new Bishop('Black', { row: 1, column: 6 });
-    const blackKnight2 = new Knight('Black', { row: 1, column: 7 });
-    const blackRook2 = new Rook('Black', { row: 1, column: 8 });
-    let row1 = [blackRook1, blackKnight1, blackBishop1, blackQueen, blackKing, blackBishop2, blackKnight2, blackRook2];
-    this.positions.push(row1);
-    this.positions.push(blackPawns);
-
-    for (let row = 3; row < 7; row++) {
+    for (let row = 0; row < 8; row++) {
       this.positions.push(['', '','', '','', '','', ''])
     }
 
-    this.positions.push(whitePawns);
+    this.route.params.subscribe((data) => {
 
-    const whiteRook1 = new Rook('White', { row: 8, column: 1 });
-    const whiteKnight1 = new Knight('White', { row: 8, column: 2 });
-    const whiteBishop1 = new Bishop('White', { row: 8, column: 3 });
-    const whiteQueen = new Queen('White');
-    const whiteKing = new King('White');
-    const whiteBishop2 = new Bishop('White', { row: 8, column: 6 });
-    const whiteKnight2 = new Knight('White', { row: 8, column: 7 });
-    const whiteRook2 = new Rook('White', { row: 8, column: 8 });
-    let row8 = [whiteRook1, whiteKnight1, whiteBishop1, whiteQueen, whiteKing, whiteBishop2, whiteKnight2, whiteRook2];
-    this.positions.push(row8);
+      this.ws.getCurrentStateData().subscribe((data) => {
+        for(let i = 0; i < (<Array<any>>data).length; i++) {
+          if (data[i]['isAlive']) {
+            switch(data[i]['name']) {
+              case 'PAWN':
+                this.positions[data[i]['position']['row']][data[i]['position']['column']] = new Pawn(data[i]['color'], data[i]['position']);
+                break;
+              case 'ROOK':
+                this.positions[data[i]['position']['row']][data[i]['position']['column']] = new Rook(data[i]['color'], data[i]['position']);
+                break;
+              case 'KNIGHT':
+                this.positions[data[i]['position']['row']][data[i]['position']['column']] = new Knight(data[i]['color'], data[i]['position']);
+                break;
+              case 'BISHOP':
+                this.positions[data[i]['position']['row']][data[i]['position']['column']] = new Bishop(data[i]['color'], data[i]['position']);
+                break;
+              case 'QUEEN':
+                this.positions[data[i]['position']['row']][data[i]['position']['column']] = new Queen(data[i]['color'], data[i]['position']);
+                break;
+              case 'KING':
+                this.positions[data[i]['position']['row']][data[i]['position']['column']] = new King(data[i]['color'], data[i]['position']);
+              break;
+            }
 
-    console.log('positions : ', this.positions);
+          }
+        }
 
-    this.clientSocket = new WebSocket('wss://echo.websocket.org');
+      })
 
-    const socket = this.clientSocket;
+      this.ws.getCurrentState(data['gameId']);
 
-    this.clientSocket.onopen = function (error:any) {
-      console.log('connection open', error);
-
-      socket.send('hello world');
-    }
-
-    this.clientSocket.onerror = function (error:any) {
-      console.log('connection error', error);
-    }
-
-    this.clientSocket.onmessage = function (error:any) {
-      console.log('message', error);
-    }
-
+    })
 
   }
 
@@ -121,19 +109,38 @@ export class ChessBoardComponent implements OnInit {
   }
 
   onPieceSelect(row: number, column: number) {
-    console.log('row : ', row + 1, ' column : ', column + 1, this.positions[row][column]);
+    console.log('turn', this.currentTurn, 'row : ', row, ' column : ', column, this.positions[row][column]);
+
+    this.hightlatedPositions = [];
+
+    if (this.selectedPiece && this.currentTurn === this.selectedPiece.color) {
+
+    }
 
     if (this.positions[row][column] !== '') {
-      const positions = this.positions[row][column].getPossibleMoves();
-      this.hightlatedPositions = positions;
-      console.log('positions : ', positions);
+      if (this.selectedPiece && this.selectedPiece.color !== this.positions[row][column].color) {
+        this.selectedPiece.move({row, column}, this.positions);
+        this.selectedPiece = null;
+        this.currentTurn = this.currentTurn === 'WHITE' ? 'BLACK' : 'WHITE';
+      } else {
+        this.selectedPiece = this.positions[row][column];
+        const positions = this.selectedPiece.getPossibleMoves();
+        this.hightlatedPositions = positions;
+        console.log('positions : ', positions);
+      }
+    } else {
+      if (this.selectedPiece) {
+        this.selectedPiece.move({row, column}, this.positions);
+        this.currentTurn = this.currentTurn === 'WHITE' ? 'BLACK' : 'WHITE';
+        this.selectedPiece = null;
+      }
     }
 
   }
 
   isHighlated(row, column) {
-    row++;
-    column++;
+    // row++;
+    // column++;
     let hightlight = false;
     // console.log('postions : ', this.hightlatedPositions);
     for (let index = 0; index < this.hightlatedPositions.length; index++) {
