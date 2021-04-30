@@ -5,19 +5,11 @@ export class King implements ChessPiece {
   name = 'King';
   isAlive = true;
 
-  constructor(public color: Color, public position: Position) {
-
+  constructor(public _id: string, public color: Color, public position: Position) {
+    console.log('king color', this.color, this._id)
     if (this.color.toUpperCase() === 'BLACK') {
-      // this.position = {
-      //   row: 0,
-      //   column: 4
-      // };
       this.image = 'https://maxcdn.icons8.com/iOS7/PNG/25/Gaming/king_filled-25.png';
     } else {
-      // this.position = {
-      //   row: 7,
-      //   column: 4
-      // }
       this.image = 'https://maxcdn.icons8.com/iOS7/PNG/25/Gaming/king-25.png';
     }
   }

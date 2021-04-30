@@ -6,8 +6,8 @@ export class Rook implements ChessPiece {
   name = 'Rook';
   isAlive = true;
 
-  constructor(public color: Color, public position: Position) {
-    if (color.toUpperCase() === 'BLACK') {
+  constructor(public _id: string, public color: Color, public position: Position) {
+    if (this.color.toUpperCase() === 'BLACK') {
       this.image = 'https://maxcdn.icons8.com/iOS7/PNG/25/Gaming/rook_filled-25.png';
     } else {
       this.image = 'https://maxcdn.icons8.com/iOS7/PNG/25/Gaming/rook-25.png';

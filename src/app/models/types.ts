@@ -10,6 +10,7 @@ export interface ChessPieceMove {
 }
 
 export interface ChessPiece {
+  readonly _id: string;
   readonly image: string;
   readonly name: string;
   isAlive: boolean;

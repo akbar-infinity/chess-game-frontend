@@ -6,7 +6,8 @@ export class Queen implements ChessPiece {
   isAlive = true;
   // position: Position;
 
-  constructor(public color: Color, public position: Position) {
+  constructor(public _id: string, public color: Color, public position: Position) {
+    console.log('queen color', this.color);
     if (this.color.toUpperCase() === 'BLACK') {
       // this.position = {
       //   row: 0,
